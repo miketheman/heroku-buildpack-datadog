@@ -6,7 +6,7 @@
     <title>Heroku Buildpack Datadog by miketheman</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
     <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -42,14 +42,14 @@ buildpacks - see <a href="https://devcenter.heroku.com/articles/buildpacks#defau
 <p>Here are some setup commands to add this buildpack to your project, as well as
 setting the required environment variables:</p>
 
-<div class="highlight highlight-shell"><pre><span class="pl-s3">cd</span> <span class="pl-k">&lt;</span>root of my project<span class="pl-k">&gt;</span>
+<div class="highlight highlight-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>root of my project<span class="pl-k">&gt;</span>
 <span class="pl-c"># Prepend the .buildpacks file with the URL</span>
-touch .buildpacks <span class="pl-k">;</span> <span class="pl-s3">echo</span> <span class="pl-s1"><span class="pl-pds">"</span>https://github.com/miketheman/heroku-buildpack-datadog.git<span class="pl-pds">"</span></span> <span class="pl-k">|</span> cat - .buildpacks <span class="pl-k">&gt;</span> /tmp/out <span class="pl-k">&amp;&amp;</span> mv /tmp/out .buildpacks
-git commit -i .buildpacks -m <span class="pl-s1"><span class="pl-pds">"</span>Add Heroku Buildpack Datadog<span class="pl-pds">"</span></span>
+touch .buildpacks <span class="pl-k">;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>https://github.com/miketheman/heroku-buildpack-datadog.git<span class="pl-pds">"</span></span> <span class="pl-k">|</span> cat - .buildpacks <span class="pl-k">&gt;</span> /tmp/out <span class="pl-k">&amp;&amp;</span> mv /tmp/out .buildpacks
+git commit -i .buildpacks -m <span class="pl-s"><span class="pl-pds">"</span>Add Heroku Buildpack Datadog<span class="pl-pds">"</span></span>
 
 heroku create <span class="pl-c"># only if this is a new heroku project</span>
 heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
-heroku config:<span class="pl-s3">set</span> HEROKU_APP_NAME=<span class="pl-s1"><span class="pl-pds">$(</span>heroku apps:info<span class="pl-k">|</span>grep ===<span class="pl-k">|</span>cut -d<span class="pl-s1"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> -f2<span class="pl-pds">)</span></span>
+heroku config:<span class="pl-c1">set</span> HEROKU_APP_NAME=<span class="pl-s"><span class="pl-pds">$(</span>heroku apps:info<span class="pl-k">|</span>grep ===<span class="pl-k">|</span>cut -d<span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> -f2<span class="pl-pds">)</span></span>
 heroku config:add DATADOG_API_KEY=<span class="pl-k">&lt;</span>your API key<span class="pl-k">&gt;</span>
 
 git push heroku master</pre></div>
@@ -57,19 +57,7 @@ git push heroku master</pre></div>
 <p>You can create/retrieve the <code>DATADOG_API_KEY</code> from your account on <a href="https://app.datadoghq.com/account/settings#api">this page</a>.
 API Key, not application key.</p>
 
-<p>Once complete, the Agent's dogstatsd package is available to be started with
-<code>./run-dogstatsd.sh</code> via some process manager.</p>
-
-<p>Some popular ones are:</p>
-
-<ul>
-<li>
-<a href="http://ddollar.github.io/foreman/">foreman</a> (Ruby)</li>
-<li>
-<a href="https://honcho.readthedocs.org/">honcho</a> (Python)</li>
-<li>
-<a href="http://strongloop.github.io/node-foreman/">node-foreman</a> (Node.js)</li>
-</ul>
+<p>Once complete, the Agent's dogstatsd binary will be started automatically with the Dyno startup.</p>
 
 <p>Once started, provides a listening port on 8125 for statsd/dotstatsd metrics and events.</p>
 
