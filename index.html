@@ -28,27 +28,24 @@
       </header>
       <section>
         <h1>
-<a id="heroku-buildpack-datadog" class="anchor" href="#heroku-buildpack-datadog" aria-hidden="true"><span class="octicon octicon-link"></span></a>heroku-buildpack-datadog</h1>
+<a id="heroku-buildpack-datadog" class="anchor" href="#heroku-buildpack-datadog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>heroku-buildpack-datadog</h1>
 
 <p>A <a href="https://devcenter.heroku.com/articles/buildpacks">Heroku Buildpack</a> to add <a href="http://docs.datadoghq.com/guides/dogstatsd/">Datadog</a> relay to any Dyno.</p>
 
 <h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>This buildpack is typically used in conjunction with other languages, so is
-most useful with the <a href="https://github.com/ddollar/heroku-buildpack-multi">heroku-buildpack-multi</a> buildpack, and language-specific
-buildpacks - see <a href="https://devcenter.heroku.com/articles/buildpacks#default-buildpacks">Heroku Language Buildpacks</a> for more.</p>
+most useful with language-specific buildpacks - see <a href="https://devcenter.heroku.com/articles/buildpacks#default-buildpacks">Heroku Language Buildpacks</a> for more.</p>
 
 <p>Here are some setup commands to add this buildpack to your project, as well as
 setting the required environment variables:</p>
 
-<div class="highlight highlight-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>root of my project<span class="pl-k">&gt;</span>
-<span class="pl-c"># Prepend the .buildpacks file with the URL</span>
-touch .buildpacks <span class="pl-k">;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>https://github.com/miketheman/heroku-buildpack-datadog.git<span class="pl-pds">"</span></span> <span class="pl-k">|</span> cat - .buildpacks <span class="pl-k">&gt;</span> /tmp/out <span class="pl-k">&amp;&amp;</span> mv /tmp/out .buildpacks
-git commit -i .buildpacks -m <span class="pl-s"><span class="pl-pds">"</span>Add Heroku Buildpack Datadog<span class="pl-pds">"</span></span>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>root of my project<span class="pl-k">&gt;</span>
 
 heroku create <span class="pl-c"># only if this is a new heroku project</span>
-heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
+heroku buildpacks:add heroku/ruby <span class="pl-c"># or other language-specific build page needed</span>
+heroku buildpacks:add --index 1 https://github.com/miketheman/heroku-buildpack-datadog.git
 heroku config:<span class="pl-c1">set</span> HEROKU_APP_NAME=<span class="pl-s"><span class="pl-pds">$(</span>heroku apps:info<span class="pl-k">|</span>grep ===<span class="pl-k">|</span>cut -d<span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> -f2<span class="pl-pds">)</span></span>
 heroku config:add DATADOG_API_KEY=<span class="pl-k">&lt;</span>your API key<span class="pl-k">&gt;</span>
 
@@ -59,10 +56,12 @@ API Key, not application key.</p>
 
 <p>Once complete, the Agent's dogstatsd binary will be started automatically with the Dyno startup.</p>
 
-<p>Once started, provides a listening port on 8125 for statsd/dotstatsd metrics and events.</p>
+<p>Once started, provides a listening port on 8125 for statsd/dogstatsd metrics and events.</p>
+
+<p>An example using Ruby is <a href="https://github.com/miketheman/buildpack-example-ruby">here</a>.</p>
 
 <h2>
-<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Todo</h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Todo</h2>
 
 <p>Things that have not been tested, tried, figured out.</p>
 
@@ -71,11 +70,11 @@ API Key, not application key.</p>
 <li>determine how the compiled cache behaves with new releases of the
 datadog-agent package, as it stored the deb file</li>
 <li>tag release when stable, update docs on how to use a given release in
-q.buildpacks</li>
+<code>.buildpacks</code>, like "<a href="https://github.com/miketheman/heroku-buildpack-datadog.git#v1.0.0">https://github.com/miketheman/heroku-buildpack-datadog.git#v1.0.0</a>"</li>
 </ul>
 
 <h2>
-<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
 
 <ul>
 <li>Fork this repo</li>
@@ -87,7 +86,7 @@ q.buildpacks</li>
 </ul>
 
 <h2>
-<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h2>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Credits</h2>
 
 <p>This buildpack was heavily inspired by the heroku-buildpack-apt code, as well
 as many others from Heroku and <a href="https://github.com/ddollar">@ddollar</a>.
@@ -97,7 +96,7 @@ uses, with a couple of modifications.</p>
 <p>Author: <a href="https://github.com/miketheman">@miketheman</a></p>
 
 <h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 
 <p>MIT License, see <code>LICENSE</code> file for full text.</p>
       </section>
