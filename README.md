@@ -3,6 +3,13 @@ heroku-buildpack-datadog
 
 A [Heroku Buildpack] to add [Datadog] [DogStatsD] relay to any Dyno.
 
+## Warning: Version pinned to datadog-agent 1:5.11.2-1
+
+[datadog-agent 5.12.0 broke compatibility with this buildpack
+by hard-deprecating `dogstatsd.py start`](https://github.com/DataDog/dd-agent/pull/3004)
+
+When the incompatibility is resolved [#30](https://github.com/miketheman/heroku-buildpack-datadog/pull/30) can be reverted.
+
 ## Usage
 
 This buildpack is typically used in conjunction with other languages, so is

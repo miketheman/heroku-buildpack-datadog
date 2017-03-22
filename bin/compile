@@ -49,7 +49,7 @@ topic "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
 topic "Fetching datadog-agent"
-apt-get $APT_OPTIONS -y --force-yes -d install --reinstall --no-install-recommends datadog-agent | indent
+apt-get $APT_OPTIONS -y --force-yes -d install --reinstall --no-install-recommends datadog-agent=1:5.11.2-1 | indent
 
 topic "Fetching deb packages"
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
