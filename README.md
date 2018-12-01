@@ -1,6 +1,16 @@
 heroku-buildpack-datadog
 ========================
 
+# DEPRECATION NOTICE
+
+This project served its purpose to launch a Datadog Agent in a Heroku environment, and has since been vastly improved upon.
+
+See https://docs.datadoghq.com/agent/basic_agent_usage/heroku/ and https://github.com/DataDog/heroku-buildpack-datadog
+
+This repo will be placed in read-only mode as of 2018-12-01.
+Thanks for your help and support!
+
+
 A [Heroku Buildpack] to add [Datadog] [DogStatsD] relay to any Dyno.
 
 ## Warning: Version pinned to datadog-agent 1:5.11.2-1
